@@ -16,6 +16,6 @@
 void clear_fb();
 void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg);
 void fb_move_cursor(unsigned short pos);
-void fb_write_string(int pos, char* string);
+void write(char* string, unsigned int len);
 
 #endif /** INCLUDE_IO_FRAMEBUFFER */

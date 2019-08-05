@@ -37,18 +37,29 @@ void clear_fb() {
 }
 
 /**
- * writes a string to the framebuffer at specified location
- * @param i - position to start writing
+ * writes a string to the framebuffer at specified location and moves the cursor to the last string written
  * @param i - string to write to buffer
+ * @param len - length of the string we are writing
  */
-void fb_write_string(int pos, char* string) {
+void write(char* string, unsigned int len) {
   int i = 0;
   int j = 0;
+  // loop until we meet null character
   while(string[j] != '\0') {
-      fb[i + pos] = string[j];
+      fb[i] = string[j];
       fb[i+1] = 0x07;
       j++;
       i += 2;
+  }
+  fb_move_cursor(len);
+}
+/**
+ * Scrolls the window by one row
+ * Currently holds no memory of earlier rows
+ */
+void scroll_window() {
+  for (int i = 0; i < 25 * 80; i++) {
+      fb[i] = 80 + i;
   }
 }
 
