@@ -10,4 +10,10 @@
 
 void outb(unsigned short port, unsigned char data);
 
+/**
+ * Reads the data from given I/O port. Defined in io.s
+ * 
+ * @param The I/O port to read data from
+ */
+void inb(unsigned short port);
 #endif /** INCLUDE_IO_H */
