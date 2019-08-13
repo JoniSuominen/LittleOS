@@ -1,4 +1,5 @@
 #include "io.h"
+#include "serial.h"
 
 /* All serial ports have their ports in same order, only the
  * starting value changes
@@ -43,4 +44,28 @@ void serial_configure_baud_rate(unsigned short com, unsigned short divisor) {
  */
 void serial_configure_line(unsigned short com) {
   outb(SERIAL_LINE_COMMAND_PORT(com), 0x03);
+}
+
+/**
+ * serial_configure_modem
+ * Configures the data flow of hardware via Ready to transmit (RTS)
+ * and Data Terminal Ready (DTR) pins. Value of 1 on these bits indicate
+ * we are ready to send data
+ * Bit:     | 7 | 6 | 5  | 4  | 3   | 2   | 1   | 0   |
+ * Content: | r | r | af | lb | ao2 | ao1 | rts | dtr | 
+ * 
+ */
+void serial_configure_modem(unsigned short com) {
+  outb(SERIAL_MODEM_COMMAND_PORT(com), 0x03);
+}
+
+/**
+ * serial_is_transmit_fifo_empty:
+ * Checks whether the COM ports transmit FIFO queue is empty.
+ * Bit 5 declares the status.
+ * 
+ * @param com the COM port
+ */
+int serial_is_transmit_fifo_empty(unsigned int com) {
+  return inb(SERIAL_LINE_STATUS_PORT(com) & 0x20);
 }
