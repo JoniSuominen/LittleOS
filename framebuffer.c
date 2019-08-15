@@ -41,7 +41,7 @@ void clear_fb() {
  * @param i - string to write to buffer
  * @param len - length of the string we are writing
  */
-void write(char* string, unsigned int len) {
+void fb_write(char* string, unsigned int len) {
   int i = 0;
   int j = 0;
   // loop until we meet null character

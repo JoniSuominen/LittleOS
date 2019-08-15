@@ -6,6 +6,6 @@ void kmain(void)
 {	//video mem begins here.
   clear_fb();
   char *string = "HELLO WORLD";
-  write("HELLO WORLD", strlen(string));
+  fb_write("HELLO WORLD", strlen(string));
 	return;
 }

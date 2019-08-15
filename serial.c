@@ -69,3 +69,19 @@ void serial_configure_modem(unsigned short com) {
 int serial_is_transmit_fifo_empty(unsigned int com) {
   return inb(SERIAL_LINE_STATUS_PORT(com) & 0x20);
 }
+
+/**
+ * serial_write:
+ * Writes a string of specified length to COM port
+ * 
+ * @param com - The COM port to write to
+ * @param string - The data to write to the COM port
+ * @param len - The length of the string to write
+ */
+void serial_write(unsigned short com, char* string, unsigned int len) {
+  if (serial_is_transmit_fifo_empty(com)) {
+    for (unsigned int i = 0; i < len; i++) {
+      outb(com, string[i]);
+    }
+  }
+}
