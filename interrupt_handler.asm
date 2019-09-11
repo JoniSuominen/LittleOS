@@ -39,6 +39,5 @@ common_interrupt_handler:
     add esp, 8
     iret
 
-no_error_code_interrupt_handler 0
-no_error_code_interrupt_handler 1
-no_error_code_interrupt_handler 2
+
+no_error_code_interrupt_handler 33 ; keyboard

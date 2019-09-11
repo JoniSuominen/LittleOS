@@ -12,15 +12,17 @@
 
 void outb(unsigned short port, unsigned char data);
 
-void load_gdt(unsigned int address ,unsigned short size);
+void load_gdt(unsigned int address, unsigned short size);
 
-/**
+void load_segment_registers();
+
+/**F
  * Reads the data from given I/O port. Defined in io.s
  * 
  * @param The I/O port to read data from
  */
 int inb(unsigned short port);
 
-void printf(char * data, unsigned int type, unsigned int len);
+void printf(char *data, unsigned int type, unsigned int len);
 
 #endif /** INCLUDE_IO_H */

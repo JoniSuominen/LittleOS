@@ -21,9 +21,10 @@ load_gdt:
 
 
 load_segment_registers:
-  mov ds, 0x10
-  mov ss, 0x10
-  mov es, 0x10 
+  mov dx, 0x10
+  mov ds, dx
+  mov ss, dx
+  mov es, dx 
   jmp 0x08: flush_cs
 
 flush_cs:

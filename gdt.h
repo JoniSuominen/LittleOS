@@ -21,5 +21,14 @@ struct gdt_entry {
   unsigned char base_upper;
 } __attribute__((packed));
 
+void create_descriptor(int index, unsigned short limit,
+    unsigned short base_lower,
+    unsigned char base_middle,
+    unsigned char access, 
+    unsigned char limit_flags,
+    unsigned char base_upper);
+
+void gdt_init();
+
 
 #endif /** INCLUDE_GDT_H */

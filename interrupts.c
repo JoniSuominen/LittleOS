@@ -1,21 +1,24 @@
 #include "interrupts.h"
 #include "io.h"
 
-static int const IDT_SIZE = 512;
+static const int IDT_SIZE = 512;
+static const int KEYBOARD_STATUS_PORT = 0x64;
+static const int KEYBOARD_DATA_PORT = 0x60;
 
-struct IDT_ENTRY IDT[IDT_SIZE];
+
+struct idt_entry IDT[512];
 
 
 void interrupt_handler(struct cpu_state cpu, struct stack_state stack, unsigned int interrupt) {
-  if (interrupt ==  17) {
-
+  if (interrupt ==  21) {
+    keyboard_handler();
   }
 }
 
 void init_idt() {
   unsigned long handler_address;
   unsigned long idt_address;
-  unsigned long idt_ptr[2];
+  struct idt_pointer *idt_ptr;
 
   /* populate idt entry of keyboard */
   IDT[0x21].offset_lowerbits = handler_address & 0xffff;
@@ -53,14 +56,30 @@ void init_idt() {
   outb(0xA1, 0xff);
 
   // fill the IDT descriptor
-  idt_address = (unsigned long) IDT;
-  idt_ptr[0] = (sizeof (struct IDT_ENTRY) * IDT_SIZE) + ((idt_address & 0xffff) << 16);
-  idt_ptr[0] = idt_address >> 16;
+  idt_ptr->address = &(IDT);
+  idt_ptr->size = sizeof(sizeof(struct idt_entry) * IDT_SIZE);
   
   load_idt(idt_ptr);
+  keyboard_irq_init();
 }
 
-void keyboard_irq_init(void) {
+void keyboard_irq_init() {
   // 0xFD equals 11111101 - this only enables the keyboard.
   outb(0x21, 0xFD);
+}
+
+void keyboard_handler() {
+  unsigned char status;
+  char keycode;
+
+  outb(0x20, 0x20);
+
+  status = inb(KEYBOARD_STATUS_PORT);
+
+  if (status & 0x01) {
+    keycode = inb(KEYBOARD_DATA_PORT);
+    if (keycode < 0)
+      return;
+    printf('a', TYPE_FRAMEBUFFER, strlen('a'));
+  }
 }
