@@ -1,6 +1,8 @@
 #ifndef INCLUDE_IO_H
 #define INCLUDE_IO_H
 
+#define TYPE_FRAMEBUFFER 0
+#define TYPE_SERIAL 1
 /** outb:
  *  Sends the given data to the given I/O port. Defined in io.s
  * 
@@ -9,6 +11,8 @@
  */
 
 void outb(unsigned short port, unsigned char data);
+
+void load_gdt(unsigned int address ,unsigned short size);
 
 /**
  * Reads the data from given I/O port. Defined in io.s

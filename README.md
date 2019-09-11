@@ -12,6 +12,12 @@ make
 qemu-system-i386 -kernel kernel
 ```
 
+Alternatively if you want serial output to show in QEMU console you can type
+```
+make
+qemu-system-i386 -kernel kernel -serial stdio 
+```
+
 
 ## Materials used
 * https://ordoflammae.github.io/littleosbook/

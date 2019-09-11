@@ -2,8 +2,6 @@
 #include "framebuffer.h"
 #include "serial.h"
 
-#define TYPE_FRAMEBUFFER 0
-#define TYPE_SERIAL 1
 #define SERIAL_COM1_BASE  0x3F8
 
 void printf(char * data, unsigned int type, unsigned int len) {
