@@ -9,6 +9,9 @@ struct gdt_pointer {
   unsigned short size;
 } __attribute__((packed)); // force gcc not to use any padding
 
+void load_gdt(unsigned int address, unsigned short size);
+
+
 /**
  * Segment descriptor data
  */
@@ -28,7 +31,7 @@ void create_descriptor(int index, unsigned short limit,
     unsigned char limit_flags,
     unsigned char base_upper);
 
-void gdt_init();
+void init_gdt();
 
 
 #endif /** INCLUDE_GDT_H */

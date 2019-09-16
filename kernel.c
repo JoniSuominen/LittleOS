@@ -10,5 +10,5 @@ void kmain(void)
   init_idt();
   clear_fb();
   char *string = "HELLO WORLD";
-  printf(string, TYPE_SERIAL, strlen(string));
+  printf(string, TYPE_FRAMEBUFFER, strlen(string));
 }

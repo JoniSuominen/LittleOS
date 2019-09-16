@@ -1,5 +1,6 @@
 #include "interrupts.h"
 #include "io.h"
+#include "string.h"
 
 static const int IDT_SIZE = 512;
 static const int KEYBOARD_STATUS_PORT = 0x64;
@@ -16,9 +17,10 @@ void interrupt_handler(struct cpu_state cpu, struct stack_state stack, unsigned 
 }
 
 void init_idt() {
-  unsigned long handler_address;
+  unsigned long handler_address = (unsigned int) interrupt_handler_33;
   unsigned long idt_address;
-  struct idt_pointer *idt_ptr;
+  struct idt_pointer idt_pntr = {0, 0};
+  struct idt_pointer *idt_ptr = &idt_pntr;
 
   /* populate idt entry of keyboard */
   IDT[0x21].offset_lowerbits = handler_address & 0xffff;
@@ -56,10 +58,10 @@ void init_idt() {
   outb(0xA1, 0xff);
 
   // fill the IDT descriptor
-  idt_ptr->address = &(IDT);
+  idt_ptr->address = (unsigned int) &(IDT);
   idt_ptr->size = sizeof(sizeof(struct idt_entry) * IDT_SIZE);
   
-  load_idt(idt_ptr);
+  load_idt(idt_ptr->address, idt_ptr->size);
   keyboard_irq_init();
 }
 
@@ -80,6 +82,6 @@ void keyboard_handler() {
     keycode = inb(KEYBOARD_DATA_PORT);
     if (keycode < 0)
       return;
-    printf('a', TYPE_FRAMEBUFFER, strlen('a'));
+    printf("a", TYPE_FRAMEBUFFER, strlen("a"));
   }
 }

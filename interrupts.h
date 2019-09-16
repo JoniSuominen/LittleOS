@@ -10,7 +10,7 @@ struct cpu_state {
   unsigned int ecx;
   unsigned int esp;
   unsigned int edx;
-  unsigned int ebp;
+  unsigned int ebp; 
   unsigned int esi;
   unsigned int edi;
 } __attribute__((packed));
@@ -36,12 +36,13 @@ struct idt_entry {
     unsigned short int offset_higherbits;
 } __attribute__((packed));
 
+void load_idt(unsigned int address, unsigned short size);
 
 /**
  * Size and start address of IDT, can be loaded with IDTR register
  */
 struct idt_pointer {
-  unsigned int *address;
+  unsigned int address;
   unsigned short size;
 }__attribute__((packed)); // force gcc not to use any padding
 
@@ -49,6 +50,7 @@ void interrupt_handler(struct cpu_state cpu, struct stack_state stack, unsigned 
 void init_idt();
 void keyboard_irq_init();
 void keyboard_handler();
+void interrupt_handler_33();
 
 
 

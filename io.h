@@ -12,8 +12,6 @@
 
 void outb(unsigned short port, unsigned char data);
 
-void load_gdt(unsigned int address, unsigned short size);
-
 void load_segment_registers();
 
 /**F
