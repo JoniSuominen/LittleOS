@@ -9,6 +9,6 @@ void kmain(void)
   init_gdt();
   init_idt();
   clear_fb();
-  char *string = "HELLO WORLD";
-  printf(string, TYPE_FRAMEBUFFER, strlen(string));
+  char * string = "HELLO JONI";
+  printf(string, TYPE_SERIAL, strlen(string));
 }

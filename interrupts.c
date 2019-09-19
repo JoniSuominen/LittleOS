@@ -7,27 +7,25 @@ static const int KEYBOARD_STATUS_PORT = 0x64;
 static const int KEYBOARD_DATA_PORT = 0x60;
 
 
-struct idt_entry IDT[512];
+struct idt_entry IDT[256];
 
 
-void interrupt_handler(struct cpu_state cpu, struct stack_state stack, unsigned int interrupt) {
-  if (interrupt ==  21) {
-    keyboard_handler();
-  }
+void interrupt_handler(struct cpu_state cpu,  unsigned int interrupt, struct stack_state stack){
+  keyboard_handler();
+
 }
 
 void init_idt() {
-  unsigned long handler_address = (unsigned int) interrupt_handler_33;
+  unsigned long handler_address = (unsigned long) interrupt_handler_33; 
   unsigned long idt_address;
-  struct idt_pointer idt_pntr = {0, 0};
-  struct idt_pointer *idt_ptr = &idt_pntr;
+  struct idt_pointer idt_ptr;
 
   /* populate idt entry of keyboard */
   IDT[0x21].offset_lowerbits = handler_address & 0xffff;
   IDT[0x21].selector = 0x08; // make the selector point to kernel code segment
   IDT[0x21].zero = 0;
   IDT[0x21].type_attr = 0x8e;
-  IDT[0x21].offset_higherbits = (handler_address & 0xffff0000) >> 16;
+  IDT[0x21].offset_higherbits = (handler_address >>16) & 0xffff;
 
 
   /**
@@ -53,15 +51,14 @@ void init_idt() {
   outb(0xA1, 0x01);
 
   // mask interrupts
-
   outb(0x21, 0xff);
   outb(0xA1, 0xff);
 
   // fill the IDT descriptor
-  idt_ptr->address = (unsigned int) &(IDT);
-  idt_ptr->size = sizeof(sizeof(struct idt_entry) * IDT_SIZE);
+  idt_ptr.address = (unsigned int) &IDT;
+  idt_ptr.size = sizeof(struct idt_entry) * IDT_SIZE- 1;
   
-  load_idt(idt_ptr->address, idt_ptr->size);
+  load_idt(idt_ptr);
   keyboard_irq_init();
 }
 
@@ -80,8 +77,11 @@ void keyboard_handler() {
 
   if (status & 0x01) {
     keycode = inb(KEYBOARD_DATA_PORT);
-    if (keycode < 0)
+    char * string = "a";
+    string[0] = keycode;
+    if (keycode < 0) {
       return;
-    printf("a", TYPE_FRAMEBUFFER, strlen("a"));
+    }
+    printf(string, TYPE_SERIAL, strlen(string));
   }
 }

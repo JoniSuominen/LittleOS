@@ -15,8 +15,7 @@ inb:
   ret ; return the found value
 
 load_gdt:
-  mov eax, [esp + 4]
-  lgdt[eax]
+  lgdt[esp + 4]
   ret
 
 
@@ -24,8 +23,11 @@ load_segment_registers:
   mov dx, 0x10
   mov ds, dx
   mov ss, dx
-  mov es, dx 
-  jmp 0x08: flush_cs
+  mov es, dx
+  mov fs, dx
+  mov gs, dx
+  jmp 0x08:flush_cs
+  
 
 flush_cs:
   ret

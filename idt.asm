@@ -5,8 +5,7 @@ global load_idt
 ;        [esp    ] the return address
 
 load_idt:
-  mov eax, [esp+4]
-  lidt [eax]
+  lidt [esp + 4]
   sti
   ret
 
