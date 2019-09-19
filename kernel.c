@@ -6,6 +6,7 @@
 
 void kmain(void)
 {	//video mem begins here.
+
   init_gdt();
   init_idt();
   clear_fb();

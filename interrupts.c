@@ -12,7 +12,6 @@ struct idt_entry IDT[256];
 
 void interrupt_handler(struct cpu_state cpu,  unsigned int interrupt, struct stack_state stack){
   keyboard_handler();
-
 }
 
 void init_idt() {

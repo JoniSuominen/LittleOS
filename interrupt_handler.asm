@@ -4,8 +4,9 @@ extern lol
 %macro no_error_code_interrupt_handler 1
 global interrupt_handler_%1
 interrupt_handler_%1:
+    cli
     push    dword 0                     ; push 0 as error code
-    push    dword 0x21                    ; push the interrupt number
+    push    dword %1                   ; push the interrupt number
     jmp     common_interrupt_handler    ; jump to the common handler
 %endmacro
 
@@ -14,6 +15,7 @@ interrupt_handler_%1:
 %macro error_code_interrupt_handler 1
 global interrupt_handler_%1
 interrupt_handler_%1:
+    cli
     push    dword %1                    ; push the interrupt number
     jmp     common_interrupt_handler    ; jump to the common handler
 %endmacro
@@ -31,7 +33,6 @@ common_interrupt_handler:
     ; call c function
     call interrupt_handler
 
-    xchg bx, bx
     pop edi
     pop esi
     pop ebp
@@ -41,7 +42,7 @@ common_interrupt_handler:
     pop eax
     
     add esp, 8
+    sti
     iret
-
 
 no_error_code_interrupt_handler 33 ; keyboard
