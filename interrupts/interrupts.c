@@ -1,7 +1,7 @@
 #include "interrupts.h"
-#include "io.h"
-#include "string.h"
-#include "drivers/keyboard.h"
+#include "../io/io.h"
+#include "../utils/string.h"
+#include "../drivers/keyboard.h"
 
 static const int IDT_SIZE = 512;
 

@@ -1,7 +1,7 @@
 #include "gdt.h"
-#include "io.h"
-#include "framebuffer.h"
-#include "string.h"
+#include "../io/io.h"
+#include "../io/framebuffer.h"
+#include "../utils/string.h"
 
 static int const GDT_SIZE = 3;
 struct gdt_entry GDT[3];

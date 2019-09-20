@@ -1,4 +1,4 @@
-OBJECTS = loader.o kernel.o io.o framebuffer.o string.o serial.o output.o gdt.o interrupts.o idt.o interrupt_handler.o drivers/keyboard.o
+OBJECTS = loader.o kernel.o io/io.o io/framebuffer.o utils/string.o io/serial.o io/output.o segmentation/gdt.o interrupts/interrupts.o interrupts/idt.o interrupts/interrupt_handler.o drivers/keyboard.o
 CC = gcc
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
 		-nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c -Wno-unused-variable -Wno-unused-parameter
@@ -37,4 +37,4 @@ run: os.iso
 	$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-	rm -rf *.o kernel.elf os.iso
+	rm -rf *.o kernel.elf os.iso */*.o

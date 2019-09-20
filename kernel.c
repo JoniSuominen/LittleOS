@@ -1,8 +1,8 @@
-#include "io.h"
-#include "framebuffer.h"
-#include "string.h"
-#include "interrupts.h"
-#include "gdt.h"
+#include "io/io.h"
+#include "io/framebuffer.h"
+#include "utils/string.h"
+#include "interrupts/interrupts.h"
+#include "segmentation/gdt.h"
 
 void kmain(void)
 {	//video mem begins here.

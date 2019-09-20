@@ -1,6 +1,6 @@
 #include "keyboard.h"
-#include "../io.h"
-#include "../string.h"
+#include "../io/io.h"
+#include "../utils/string.h"
 
 char * keyboard_map[] = {
     "ERR", "ESC", "1", "2", "3", "4", "5",
@@ -8,7 +8,7 @@ char * keyboard_map[] = {
     "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[",
     "]", "Enter", "Ctrl", "A", "S", "D", "F", "G", "H", "J",
     "K", "L", ":", "'", "~", "L SH", "|", "Z", "X", "C", "V",
-    "B", "N", "M", ",", ".", "?", "R SH", "PrtScr", "Alt", "Spc",
+    "B", "N", "M", ",", ".", "?", "R SH", "PrtScr", "Alt", " ",
     "CpsLck", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9",
     "F10"
 };
