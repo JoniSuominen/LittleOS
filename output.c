@@ -9,5 +9,6 @@ void printf(char * data, unsigned int type, unsigned int len) {
     serial_write(SERIAL_COM1_BASE, data, len);
   } else {
     fb_write(data, len);
+    
   }
 }

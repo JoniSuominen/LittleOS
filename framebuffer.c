@@ -3,6 +3,8 @@
 
 /* framebuffer location */
 char *fb = (char*)0xb8000; 
+int pos = 0;
+int cursor = 0;
 
 /**
  * Writes a character with defined foreground and background colors onto the position i
@@ -42,16 +44,17 @@ void clear_fb() {
  * @param len - length of the string we are writing
  */
 void fb_write(char* string, unsigned int len) {
-  int i = 0;
   int j = 0;
+  int org = pos;
   // loop until we meet null character
   while(string[j] != '\0') {
-      fb[i] = string[j];
-      fb[i+1] = 0x07;
+      fb[pos] = string[j];
+      fb[pos+1] = 0x07;
       j++;
-      i += 2;
+      pos += 2;
+      cursor++;
   }
-  fb_move_cursor(len);
+  fb_move_cursor(cursor);
 }
 /**
  * Scrolls the window by one row

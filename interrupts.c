@@ -1,10 +1,9 @@
 #include "interrupts.h"
 #include "io.h"
 #include "string.h"
+#include "drivers/keyboard.h"
 
 static const int IDT_SIZE = 512;
-static const int KEYBOARD_STATUS_PORT = 0x64;
-static const int KEYBOARD_DATA_PORT = 0x60;
 
 
 struct idt_entry IDT[256];
@@ -61,26 +60,3 @@ void init_idt() {
   keyboard_irq_init();
 }
 
-void keyboard_irq_init() {
-  // 0xFD equals 11111101 - this only enables the keyboard.
-  outb(0x21, 0xFD);
-}
-
-void keyboard_handler() {
-  unsigned char status;
-  char keycode;
-
-  outb(0x20, 0x20);
-
-  status = inb(KEYBOARD_STATUS_PORT);
-
-  if (status & 0x01) {
-    keycode = inb(KEYBOARD_DATA_PORT);
-    char * string = "a";
-    string[0] = keycode;
-    if (keycode < 0) {
-      return;
-    }
-    printf(string, TYPE_SERIAL, strlen(string));
-  }
-}
