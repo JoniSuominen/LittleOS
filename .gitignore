@@ -5,3 +5,4 @@ kernel
 bochslog.txt
 copy.txt
 *.iso
+iso/boot/kernel.elf
