@@ -1,4 +1,4 @@
-bits 32
+
 MAGIC_NUMBER        equ 0x1BADB002
 ALIGN_MODULES       equ 0x00000001
 
@@ -15,7 +15,6 @@ extern kmain
 
 loader:  
     ; the loader label (defined as entry point in linker script)
-    mov eax, 0xCAFEBABE         ; place the number 0xCAFEBABE in the register eax
     mov esp, kernel_stack + KERNEL_STACK_SIZE ; point esp to the start of the stack (end of memory area )
     push ebx
     call kmain
