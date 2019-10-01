@@ -7,18 +7,7 @@
 
 void kmain(unsigned int ebx)
 {	//video mem begins here.
-/*
-  multiboot_info_t *mbinfo = (multiboot_info_t *) ebx;
-  unsigned int* modules = (unsigned int*) mbinfo->mods_addr;       
-	unsigned int  address_of_module = modules[0];
-  if (mbinfo->mods_count > 0) {
-    clear_fb();
-    printf(itoa(mbinfo->mods_count, 10), TYPE_FRAMEBUFFER, strlen(itoa(mbinfo->mods_count, 10)));
-    typedef void (*call_module_t)(void);
-    call_module_t start_program = (call_module_t) address_of_module;
-    start_program();
-  }
-  */
+
   clear_fb();
   multiboot_info_t  *mbinfo = (multiboot_info_t *) ebx;
   unsigned int * modules = (unsigned int*) mbinfo->mods_addr;
