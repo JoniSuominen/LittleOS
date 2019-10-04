@@ -4,11 +4,13 @@
 #include "interrupts/interrupts.h"
 #include "segmentation/gdt.h"
 #include "multiboot.h"
+#include "segmentation/pages.h"
 
 void kmain(unsigned int ebx)
 {	//video mem begins here.
 
   clear_fb();
+  /*
   multiboot_info_t  *mbinfo = (multiboot_info_t *) ebx;
   unsigned int * modules = (unsigned int*) mbinfo->mods_addr;
   typedef void (*call_module_t)(void);
@@ -23,7 +25,12 @@ void kmain(unsigned int ebx)
   } else {
     char * string = "no modules loaded";
     printf(string, TYPE_SERIAL, strlen(string));
-  }
+  }   
+  */
   init_gdt();
   init_idt();
+  init_page_table();
+  char * string = "Succesfully initialized paging";
+  printf(string, TYPE_FRAMEBUFFER, strlen(string));
+
 } 

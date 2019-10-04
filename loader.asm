@@ -14,11 +14,6 @@ global loader
 extern kmain
 
 loader:  
-    ; the loader label (defined as entry point in linker script)
-    lea ebx, [higher_half]
-    jmp ebx
-
-higher_half:
     mov esp, kernel_stack + KERNEL_STACK_SIZE ; point esp to the start of the stack (end of memory area )
     push ebx
     call kmain

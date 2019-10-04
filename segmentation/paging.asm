@@ -1,9 +1,10 @@
 bits 32
 
-global enable_paging
+global enablePaging
+global loadPageDirectory
 
 
-enable_paging:
+enablePaging:
     mov cr3, eax    ;eax contains the register of page directory
     
     mov ebx, cr4    ;read cr4
@@ -13,3 +14,10 @@ enable_paging:
     mov ebx, cr0
     or ebx, 0x80000000 ; set PG
     mov cr0, ebx    ;;update ebx
+    ret
+
+loadPageDirectory:
+    xchg bx, bx
+    mov eax, [esp + 4]
+    mov cr3, eax ;load address of page directory to eax
+    ret
