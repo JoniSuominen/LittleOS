@@ -2,7 +2,7 @@
 #include "io.h"
 
 /* framebuffer location */
-char *fb = (char*)0xb8000; 
+char *fb = (char*)0xC00B8000; 
 int pos = 0;
 int cursor = 0;
 

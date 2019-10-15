@@ -6,10 +6,12 @@
 #include "multiboot.h"
 #include "segmentation/pages.h"
 
-void kmain(unsigned int ebx)
+void kmain()
 {	//video mem begins here.
 
-  clear_fb();
+  //clear_fb();
+  char * string = "Succesfully initialized paging";
+  printf(string, TYPE_FRAMEBUFFER, strlen(string));
   /*
   multiboot_info_t  *mbinfo = (multiboot_info_t *) ebx;
   unsigned int * modules = (unsigned int*) mbinfo->mods_addr;
@@ -29,8 +31,8 @@ void kmain(unsigned int ebx)
   */
   init_gdt();
   init_idt();
-  init_page_table();
-  char * string = "Succesfully initialized paging";
-  printf(string, TYPE_FRAMEBUFFER, strlen(string));
-
 } 
+
+void init_paging() {
+    init_page_table();
+}
