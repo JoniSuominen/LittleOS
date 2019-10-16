@@ -6,11 +6,14 @@
 #include "multiboot.h"
 #include "segmentation/pages.h"
 
-void kmain()
+void kmain(unsigned int ebx)
 {	//video mem begins here.
-
-  //clear_fb();
-  char * string = "Succesfully initialized paging";
+  multiboot_info_t  *mbinfo = (multiboot_info_t *) ebx;
+  init_gdt();
+  init_idt();
+  
+  clear_fb();
+  char * string = "Initialized paging";
   printf(string, TYPE_FRAMEBUFFER, strlen(string));
   /*
   multiboot_info_t  *mbinfo = (multiboot_info_t *) ebx;
@@ -29,8 +32,6 @@ void kmain()
     printf(string, TYPE_SERIAL, strlen(string));
   }   
   */
-  init_gdt();
-  init_idt();
 } 
 
 void init_paging() {

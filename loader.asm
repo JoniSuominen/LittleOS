@@ -1,7 +1,7 @@
 
 
 MAGIC_NUMBER        equ 0x1BADB002
-ALIGN_MODULES       equ 0x00000000
+ALIGN_MODULES       equ 0x00000001
 KERNEL_VIRTUAL_BASE equ 0xC0000000
 KERNEL_PAGE_NUMBER  equ (KERNEL_VIRTUAL_BASE >> 22)
 CHECKSUM            equ -(MAGIC_NUMBER + ALIGN_MODULES)
@@ -17,6 +17,7 @@ align 4
   dd MAGIC_NUMBER           ;magic
   dd ALIGN_MODULES           ; align_modules
   dd CHECKSUM ;checksum. m+f+c should be 
+  
 _loader: 
     mov ecx, (BootPageDirectory - KERNEL_VIRTUAL_BASE)  
     mov cr3, ecx
@@ -29,18 +30,14 @@ _loader:
     or ecx, 0x80000000 ; set PG
     mov cr0, ecx    ;;update ebx
     lea ecx, [higherHalf]
-    xchg bx, bx
     jmp ecx
 
 higherHalf:
   mov dword [BootPageDirectory], 0
   invlpg [0]
   mov esp, kernel_stack + KERNEL_STACK_SIZE ; point esp to the start of the stack (end of memory area )
-  add ebx, KERNEL_VIRTUAL_BASE
-  xchg bx, bx
   push ebx
   call kmain
-  xchg bx, bx
 
 .loop:
   jmp .loop
