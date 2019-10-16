@@ -1,4 +1,4 @@
-
+global _loader
 
 MAGIC_NUMBER        equ 0x1BADB002
 ALIGN_MODULES       equ 0x00000001

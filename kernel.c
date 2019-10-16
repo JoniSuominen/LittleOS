@@ -13,8 +13,9 @@ void kmain(unsigned int ebx)
   init_idt();
   
   clear_fb();
-  char * string = "Initialized paging";
+  char * string = "Initialized paging succesfully";
   printf(string, TYPE_FRAMEBUFFER, strlen(string));
+  //printf(string2, TYPE_FRAMEBUFFER, strlen(string2));
   /*
   multiboot_info_t  *mbinfo = (multiboot_info_t *) ebx;
   unsigned int * modules = (unsigned int*) mbinfo->mods_addr;

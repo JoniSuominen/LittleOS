@@ -1,4 +1,4 @@
-ENTRY(loader)
+ENTRY(_loader)
 OUTPUT_FORMAT(elf32-i386)
  
 SECTIONS {
@@ -7,8 +7,8 @@ SECTIONS {
       physical address space. */
    . = 0xC0100000;
  
-   .text : AT(ADDR(.text) - 0xC0000000) {
-       *(.text)
+   .text ALIGN (0X1000): AT(ADDR(.text) - 0xC0000000) {
+       *(.text*)
        *(.rodata*)
    }
  
