@@ -66,6 +66,14 @@ void scroll_window() {
   }
 }
 
+void next_line() {
+  int line = pos / 80;
+  cursor += (line * 80 - cursor);
+  int newPos = pos % 80;
+  pos += (160 - newPos);
+  fb_move_cursor(cursor);
+}
+
 
 
 /**

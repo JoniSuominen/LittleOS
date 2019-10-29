@@ -12,7 +12,7 @@ enablePaging:
     mov cr4, ebx
 
     mov ebx, cr0
-    or ebx, 0x80000000 ; set PG
+    or ebx, 0x80000001 ; set PG
     mov cr0, ebx    ;;update ebx
     ret
 

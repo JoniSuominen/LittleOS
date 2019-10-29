@@ -1,6 +1,7 @@
 #include "keyboard.h"
 #include "../io/io.h"
 #include "../utils/string.h"
+#include "../io/framebuffer.h"
 
 char * keyboard_map[] = {
     "ERR", "ESC", "1", "2", "3", "4", "5",
@@ -28,7 +29,11 @@ void keyboard_handler() {
     if (keycode < 0) {
       return;
     }
-    printf(string, TYPE_FRAMEBUFFER, strlen(string));
+    if (keycode == 0x1C) {
+      next_line();
+    } else {
+      printf(string, TYPE_FRAMEBUFFER, strlen(string));
+    }
   }
 }
 

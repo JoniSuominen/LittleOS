@@ -9,6 +9,7 @@ SECTIONS {
  
    .text ALIGN (0X1000): AT(ADDR(.text) - 0xC0000000) {
        *(.text*)
+       *(.multiboot)
        *(.rodata*)
    }
  
@@ -22,4 +23,6 @@ SECTIONS {
        *(.bss)
        _ebss = .;
    }
+
+   end = .;
 }
