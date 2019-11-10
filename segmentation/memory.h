@@ -9,7 +9,7 @@ unsigned int kmalloc_ap(unsigned int sz, int align, unsigned int *phys);
 
 
 
-extern void loadPageDirectory(unsigned int * val);
+extern void loadPageDirectory(unsigned int val);
 extern void enablePaging();
 
 #endif /** INCLUDE_MEMORY_H */

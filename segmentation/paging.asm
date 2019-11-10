@@ -17,7 +17,6 @@ enablePaging:
     ret
 
 loadPageDirectory:
-    xchg bx, bx
     mov eax, [esp + 4]
     mov cr3, eax ;load address of page directory to eax
     ret

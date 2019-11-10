@@ -47,7 +47,7 @@ void alloc_frame(page_t *page, int is_kernel, int is_writeable);
 void free_frame(page_t  *page);
 
 
-extern void loadPageDirectory(unsigned int * val);
+extern void loadPageDirectory(unsigned int val);
 extern void enablePaging();
 
 #endif /** INCLUDE_PAGES_H */

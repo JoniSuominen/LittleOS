@@ -9,9 +9,8 @@ unsigned int nframes;
 page_directory_t *kernel_directory	= 0;
 
 // The current page directory
-page_directory_t *current_directory	= 0;
 */
-
+page_directory_t *current_directory	= 0;
 unsigned int * kernel_directory = 0;
 
 extern unsigned int placement_address;
@@ -90,42 +89,24 @@ void free_frame(page_t * page) {
 void initialize_paging() {
     unsigned int mem_end_page = 0x1000000;
     nframes = mem_end_page / 0x1000;
-    printf(itoa(placement_address, 16), TYPE_FRAMEBUFFER, strlen(itoa(placement_address, 16)));
-    frames = (unsigned int *) kmalloc(INDEX_FROM_BIT(nframes));
-    printf("hei", TYPE_FRAMEBUFFER, strlen("hei"));
-    kernel_directory = (page_directory_t*)kmalloc_a(sizeof(page_directory_t), 1);
+    
+    kernel_directory =  (unsigned int * )  0xC0101000;
     
     for (int i = 0; i < 1024; i++) {
-        page_table_t* temp = (page_table_t *) 0;
-        kernel_directory->tables[i] = temp;
+        kernel_directory[i] = 0 | 2;
     }
     
-    kernel_directory->tables[768] = (page_table_t *) 0x83;
-    //kernel_directory->tablesPhysical[768] =  (unsigned int) (((page_table_t*) 0x83) - 0xC0000000);
-    switch_page_directory(kernel_directory);
-    
-    /*
-   unsigned int i = 0;
-   
-   while (i < placement_address)
-   {
-       // Kernel code is readable but not writeable from userspace.
-       alloc_frame( get_page(i, 1, kernel_directory), 0, 0);
-       i += 0x1000;
-   }
-   kernel_directory->tables[768] = (page_table_t*) 0x83;
-
-    
-    switch_page_directory(kernel_directory);
-    */
-
+    kernel_directory[768] = 0x83 | 3;
+    char * panic = "No free frames!";
+    printf(panic, TYPE_FRAMEBUFFER, strlen(panic));
+    loadPageDirectory(0x00101000);
 }
 
 void switch_page_directory(page_directory_t  *dir) {
     current_directory = dir;
     page_directory_t * newDir = dir;
     newDir -= 0xC0000000;
-    loadPageDirectory((unsigned int * )newDir->tables);
+    //loadPageDirectory((unsigned int * )newDir->tables);
     enablePaging();
 }
 

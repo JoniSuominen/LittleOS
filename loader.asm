@@ -20,7 +20,6 @@ align 4
   
 _loader: 
     mov ecx, (BootPageDirectory - KERNEL_VIRTUAL_BASE)
-    xchg bx, bx
     mov cr3, ecx
 
     mov ecx, cr4    ;read cr4

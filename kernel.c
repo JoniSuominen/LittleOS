@@ -14,7 +14,7 @@ void kmain(unsigned int ebx)
   init_idt();
   
   clear_fb();
+  initialize_paging();
   char * string = "Initialized paging succesfully";
   printf(string, TYPE_FRAMEBUFFER, strlen(string));
-  initialize_paging();
 } 
