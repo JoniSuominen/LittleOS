@@ -1,6 +1,6 @@
-OBJECTS = loader.o kernel.o io/io.o io/framebuffer.o utils/string.o io/serial.o io/output.o segmentation/gdt.o interrupts/interrupts.o interrupts/idt.o interrupts/interrupt_handler.o drivers/keyboard.o segmentation/pages.o segmentation/paging.o
+OBJECTS = loader.o kernel.o io/io.o io/framebuffer.o utils/string.o io/serial.o io/output.o segmentation/gdt.o interrupts/interrupts.o interrupts/idt.o interrupts/interrupt_handler.o drivers/keyboard.o segmentation/pages.o segmentation/paging.o segmentation/memory.o
 CC = gcc
-CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
+CFLAGS = -m32 -g -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
 		-nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c -Wno-unused-variable -Wno-unused-parameter
 LDFLAGS = -m elf_i386 -T link.ld 
 AS = nasm

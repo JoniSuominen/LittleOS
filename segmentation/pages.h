@@ -44,7 +44,7 @@ void switch_page_directory(page_directory_t *new);
 page_t *get_page(unsigned int address, int make, page_directory_t *dir);
 
 void alloc_frame(page_t *page, int is_kernel, int is_writeable);
-void free_frame(pate_t  *page);
+void free_frame(page_t  *page);
 
 
 extern void loadPageDirectory(unsigned int * val);

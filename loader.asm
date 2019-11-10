@@ -19,7 +19,8 @@ align 4
   dd CHECKSUM ;checksum. m+f+c should be 
   
 _loader: 
-    mov ecx, (BootPageDirectory - KERNEL_VIRTUAL_BASE)  
+    mov ecx, (BootPageDirectory - KERNEL_VIRTUAL_BASE)
+    xchg bx, bx
     mov cr3, ecx
 
     mov ecx, cr4    ;read cr4

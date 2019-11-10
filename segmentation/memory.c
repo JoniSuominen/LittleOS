@@ -21,10 +21,15 @@ unsigned int kmalloc(unsigned int sz) {
     return tmp;
 }
 
-unsigned int kmalloc_ap(unsigned int sz, int align) {
+
+unsigned int kmalloc_ap(unsigned int sz, int align, unsigned int *phys) {
     if (align == 1 &&(placement_address & 0xFFFFF000)) {
         placement_address &= 0xFFFFF000;
         placement_address += 0x1000;
+    }
+
+    if(phys){
+        *phys = placement_address;
     }
 
     unsigned int tmp = placement_address;
@@ -32,11 +37,8 @@ unsigned int kmalloc_ap(unsigned int sz, int align) {
     return tmp;
 }
 
-unsigned int kmalloc_ap(unsigned int sz, int align, unsigned int *phys) {
-    if (align == 1 &&(placement_address & 0xFFFFF000)) {
-        placement_address &= 0xFFFFF000;
-        placement_address += 0x1000;
-    }
+
+unsigned int kmalloc_p(unsigned int sz, unsigned int *phys) {
 
     if(phys){
         *phys = placement_address;

@@ -23,6 +23,6 @@ SECTIONS {
        *(.bss)
        _ebss = .;
    }
-
+   placement_address = .;
    end = .;
 }

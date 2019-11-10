@@ -16,9 +16,5 @@ void kmain(unsigned int ebx)
   clear_fb();
   char * string = "Initialized paging succesfully";
   printf(string, TYPE_FRAMEBUFFER, strlen(string));
-  init_page_table();
+  initialize_paging();
 } 
-
-void init_paging() {
-    init_page_table();
-}
