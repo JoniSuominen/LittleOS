@@ -6,6 +6,7 @@ unsigned int kmalloc(unsigned int sz);
 unsigned int kmalloc_a(unsigned int sz, int align);
 unsigned int kmalloc_p(unsigned int sz, unsigned int *phys);
 unsigned int kmalloc_ap(unsigned int sz, int align, unsigned int *phys);
+unsigned int kmalloc_hh(unsigned int sz, int align);
 
 
 

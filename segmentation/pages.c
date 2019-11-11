@@ -89,17 +89,18 @@ void free_frame(page_t * page) {
 void initialize_paging() {
     unsigned int mem_end_page = 0x1000000;
     nframes = mem_end_page / 0x1000;
+    int addr = kmalloc_a(8192, 1);
     
-    kernel_directory =  (unsigned int * )  0xC0101000;
+    // we are working in higher half of kernel - we must adjust the addres for paging!
+    // the first page was 4 mb, so we are currently inside it as    
+    kernel_directory =  (unsigned int * )  (addr + 0xC0000000);
     
     for (int i = 0; i < 1024; i++) {
         kernel_directory[i] = 0 | 2;
     }
     
     kernel_directory[768] = 0x83 | 3;
-    char * panic = "No free frames!";
-    printf(panic, TYPE_FRAMEBUFFER, strlen(panic));
-    loadPageDirectory(0x00101000);
+    loadPageDirectory(addr);
 }
 
 void switch_page_directory(page_directory_t  *dir) {
