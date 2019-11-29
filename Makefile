@@ -1,4 +1,4 @@
-OBJECTS = loader.o kernel.o io/io.o io/framebuffer.o utils/string.o io/serial.o io/output.o segmentation/gdt.o interrupts/interrupts.o interrupts/idt.o interrupts/interrupt_handler.o drivers/keyboard.o segmentation/pages.o segmentation/paging.o segmentation/memory.o
+OBJECTS = loader.o kernel.o io/io.o io/framebuffer.o utils/string.o  utils/common.o io/serial.o io/output.o segmentation/gdt.o interrupts/interrupts.o interrupts/idt.o interrupts/interrupt_handler.o drivers/keyboard.o segmentation/pages.o segmentation/paging.o segmentation/kheap.o segmentation/memory.o algorithms/ordered_array.o
 CC = gcc
 CFLAGS = -m32 -g -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
 		-nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c -Wno-unused-variable -Wno-unused-parameter

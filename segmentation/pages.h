@@ -1,6 +1,7 @@
 #ifndef INCLUDE_PAGES_H
 #define INCLUDE_PAGES_H
 
+#include "../utils/common.h"
 typedef struct page
 {
     unsigned int present: 1; // Is the page present in memory
@@ -41,13 +42,13 @@ void initialize_paging();
 
 void switch_page_directory(page_directory_t *new);
 
-page_t *get_page(unsigned int address, int make, page_directory_t *dir);
+page_t *get_page(unsigned int address, int make, page_directory_t *dir, int isHigherHalf);
 
 void alloc_frame(page_t *page, int is_kernel, int is_writeable);
 void free_frame(page_t  *page);
 
 
-extern void loadPageDirectory(unsigned int val);
+extern void loadPageDirectory(uint32_t val);
 extern void enablePaging();
 
 #endif /** INCLUDE_PAGES_H */

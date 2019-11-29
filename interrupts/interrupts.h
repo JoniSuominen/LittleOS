@@ -50,6 +50,7 @@ void init_idt();
 void keyboard_irq_init();
 void keyboard_handler();
 extern void interrupt_handler_33();
+extern void interrupt_handler_14();
 
 
 

@@ -45,4 +45,5 @@ common_interrupt_handler:
     sti
     iret
 
+error_code_interrupt_handler 14 ;page fault
 no_error_code_interrupt_handler 33 ; keyboard

@@ -28,9 +28,8 @@ char* itoa(int val, int base){
 
 }
 
-void memset(unsigned char *dest, unsigned char val, unsigned int len) {
+void memset(void *dest, unsigned char val, unsigned int len) {
   for (unsigned char * temp = dest; len != 0; len--) {
-    asm volatile ("xchg %bx, %bx");
     *temp = val;
   }
 }

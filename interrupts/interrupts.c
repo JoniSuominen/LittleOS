@@ -10,20 +10,34 @@ struct idt_entry IDT[256];
 
 
 void interrupt_handler(struct cpu_state cpu,  unsigned int interrupt, struct stack_state stack){
-  keyboard_handler();
+  if (interrupt == 0x21) {
+    keyboard_handler();
+  } else if (interrupt == 0xE) {
+   unsigned int faulting_address;
+   asm volatile("mov %%cr2, %0" : "=r" (faulting_address));
+   char *string = "PAGE FAULT";
+   printf(string, TYPE_FRAMEBUFFER, strlen(string));
+  }
 }
 
 void init_idt() {
-  unsigned long handler_address = (unsigned long) interrupt_handler_33; 
+  unsigned long keyboard_handler_address = (unsigned long) interrupt_handler_33; 
+  unsigned long pagefault_handler_address = (unsigned long) interrupt_handler_14;
   unsigned long idt_address;
   struct idt_pointer idt_ptr;
 
   /* populate idt entry of keyboard */
-  IDT[0x21].offset_lowerbits = handler_address & 0xffff;
+  IDT[0x21].offset_lowerbits = keyboard_handler_address & 0xffff;
   IDT[0x21].selector = 0x08; // make the selector point to kernel code segment
   IDT[0x21].zero = 0;
   IDT[0x21].type_attr = 0x8e;
-  IDT[0x21].offset_higherbits = (handler_address >>16) & 0xffff;
+  IDT[0x21].offset_higherbits = (keyboard_handler_address >>16) & 0xffff;
+
+  IDT[0xE].offset_lowerbits = pagefault_handler_address & 0xffff;
+  IDT[0xE].selector = 0x08; // make the selector point to kernel code segment
+  IDT[0xE].zero = 0;
+  IDT[0xE].type_attr = 0x8e;
+  IDT[0xE].offset_higherbits = (pagefault_handler_address >>16) & 0xffff;
 
 
   /**
