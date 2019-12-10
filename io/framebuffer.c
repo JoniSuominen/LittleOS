@@ -56,6 +56,15 @@ void fb_write(char* string, unsigned int len) {
   }
   fb_move_cursor(cursor);
 }
+
+void write_char(char x) {
+    int org = pos;
+      fb[pos] = x;
+      fb[pos+1] = 0x07;
+      pos += 2;
+      cursor++;
+        fb_move_cursor(cursor);
+}
 /**
  * Scrolls the window by one row
  * Currently holds no memory of earlier rows
