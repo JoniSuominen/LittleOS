@@ -9,13 +9,13 @@ on real hardware at this point
 
 ```
 make
-qemu-system-i386 -kernel kernel
+qemu-system-i386 -kernel kernel.elf
 ```
 
 Alternatively if you want serial output to show in QEMU console you can type
 ```
 make
-qemu-system-i386 -kernel kernel -serial stdio 
+qemu-system-i386 -kernel kernel.elf -serial stdio 
 ```
 
 
