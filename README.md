@@ -1,4 +1,5 @@
-# LittleOS
+# PolarOS
+![PolarOS Logo](https://imgur.com/a/lj7stdt)
 A small project to educate myself on how an operating system works on a low level.
 The basis for this project is the LittleOS book.
 
